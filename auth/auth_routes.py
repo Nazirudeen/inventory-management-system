@@ -1,6 +1,6 @@
 from flask import Blueprint, request, redirect, url_for,jsonify, session, render_template
 from db import get_db_connection
-from werkzeug.security import check_password_hash
+from werkzeug.security import generate_password_hash, check_password_hash
 
 auth_bp = Blueprint('auth', __name__)
 
@@ -19,7 +19,6 @@ def logout():
 # ----------------------
 # SIGNUP
 # ----------------------
-from werkzeug.security import generate_password_hash, check_password_hash
 @auth_bp.route('/signup', methods=['POST'])
 def signup():
     try:
