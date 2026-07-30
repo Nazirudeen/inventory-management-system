@@ -1,0 +1,166 @@
+{% extends "base.html" %}
+{% block title %}Product Management{% endblock %}
+
+{% block content %}
+
+<div class="product-wrapper">
+
+    <h2 class="page-title">Product Management</h2>
+
+    <!-- MENU -->
+    <div class="product-menu">
+        <button onclick="showAdd()">➕ Add Product</button>
+        <button onclick="showList()">📋 View Products</button>
+    </div>
+
+    <!-- ADD / EDIT CARD -->
+    <div id="formBox" class="card wide center" style="display:none;">
+        <h3 id="formTitle">Add Product</h3>
+
+        <input type="hidden" id="pid">
+
+        <input id="pname" placeholder="Product Name">
+        <input id="pprice" placeholder="Price">
+        <input id="pqty" placeholder="Quantity">
+
+        <button onclick="saveProduct()">Save</button>
+        <p id="msg"></p>
+    </div>
+
+    <!-- PRODUCT LIST CARD -->
+    <div id="listBox" class="card wide center" style="display:none;">
+        <h3>Product List</h3>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Stock</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="productTable"></tbody>
+        </table>
+    </div>
+
+</div>
+
+<script>
+function showAdd() {
+    formBox.style.display = "block";
+    formBox.style.opacity = "0";
+    formBox.style.transform = "translateY(20px)";
+    
+    setTimeout(() => {
+        formBox.style.transition = "all 0.4s ease";
+        formBox.style.opacity = "1";
+        formBox.style.transform = "translateY(0)";
+    }, 10);
+
+    listBox.style.display = "none";
+
+    formTitle.innerText = "Add Product";
+    pid.value = "";
+    pname.value = "";
+    pprice.value = "";
+    pqty.value = "";
+    msg.innerText = "";
+}
+
+function showList() {
+    listBox.style.display = "block";
+    listBox.style.opacity = "0";
+    listBox.style.transform = "translateY(20px)";
+
+    setTimeout(() => {
+        listBox.style.transition = "all 0.4s ease";
+        listBox.style.opacity = "1";
+        listBox.style.transform = "translateY(0)";
+    }, 10);
+
+    formBox.style.display = "none";
+
+    loadProducts();
+}
+function saveProduct() {
+    const id = pid.value;
+    const url = id ? `/products/${id}` : "/products";
+    const method = id ? "PUT" : "POST";
+
+    fetch(url, {
+        method: method,
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+            product_name: pname.value,
+            price: pprice.value,
+            quantity: pqty.value
+        })
+    })
+    .then(res => res.json())
+    .then(data => {
+        msg.innerText = data.message || "Saved successfully";
+        msg.style.color = "green";
+        showList();
+    });
+}
+
+function loadProducts() {
+    fetch("/products")
+        .then(res => res.json())
+        .then(data => {
+            let rows = "";
+            data.data.forEach(p => {
+                rows += `
+                <tr>
+                    <td>${p.product_id}</td>
+                    <td>${p.product_name}</td>
+                    <td>${p.price}</td>
+                    <td>${p.quantity}</td>
+                    <td>
+                        <button onclick="editProduct(${p.product_id}, '${p.product_name}', ${p.price}, ${p.quantity})">
+                            Edit
+                        </button>
+                        <button class="danger" onclick="deleteProduct(${p.product_id})">
+                             Delete
+                        </button>
+                    </td>
+                </tr>`;
+            });
+            productTable.innerHTML = rows;
+        });
+}
+
+function editProduct(id, name, price, qty) {
+    showAdd();
+    formTitle.innerText = "Edit Product";
+    pid.value = id;
+    pname.value = name;
+    pprice.value = price;
+    pqty.value = qty;
+}
+
+function deleteProduct(id) {
+    if (!confirm("Delete this product?")) return;
+
+    fetch(`/products/${id}`, {
+        method: "DELETE",
+        credentials: "same-origin"
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === "success") {
+            loadProducts();
+        } else {
+            alert(data.message);
+        }
+    })
+    .catch(error => {
+        console.error("Delete error:", error);
+        alert("Something went wrong!");
+    });
+}
+</script>
+
+{% endblock %}

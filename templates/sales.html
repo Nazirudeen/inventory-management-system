@@ -1,0 +1,221 @@
+{% extends "base.html" %}
+{% block title %}Sales{% endblock %}
+
+{% block content %}
+<div class="card wide">
+    <h3>Sales Management</h3>
+
+    <!-- ========================= -->
+    <!-- 1️⃣ VIEW ALL SOLD ITEMS -->
+    <!-- ========================= -->
+    <h4>Sold Items</h4>
+    <input type="date" id="saleDate">
+<button onclick="loadSoldItems()">Load Sold Items</button>
+    
+
+
+    <table id="itemsTable" >
+       <thead>
+    <tr>
+        <th>Sale ID</th>
+        <th>Date</th>
+        <th>Total Amount</th>
+        <th>Bill</th>
+    </tr>
+</thead>
+
+        <tbody></tbody>
+    </table>
+
+    <hr>
+
+    <!-- ========================= -->
+    <!-- 2️⃣ VIEW SINGLE BILL -->
+    <!-- ========================= -->
+    <h4>Bill Details</h4>
+    <pre id="billBox"></pre>
+
+    <hr>
+
+    <!-- ========================= -->
+    <!-- 3️⃣ DAILY SALES REPORT -->
+    <!-- ========================= -->
+    <h4>Daily Sales Report</h4>
+    <input type="date" id="dailyDate">
+    <button onclick="loadDailyReport()">Get Daily Report</button>
+
+    <pre id="dailyReport"></pre>
+
+    <hr>
+
+    <!-- ========================= -->
+    <!-- 4️⃣ MONTHLY SALES REPORT -->
+    <!-- ========================= -->
+    <h4>Monthly Sales Report</h4>
+    <input type="month" id="monthlyMonth">
+    <button onclick="loadMonthlyReport()">Get Monthly Report</button>
+
+    <pre id="monthlyReport"></pre>
+</div>
+
+<script>
+/* =========================
+   1️⃣ VIEW ALL SOLD ITEMS
+========================= */
+
+function loadSoldItems() {
+
+    const date = document.getElementById("saleDate").value;
+
+    let url = "/sales/items";
+
+    if (date) {
+        url += `?date=${date}`;
+    }
+
+    fetch(url)
+        .then(res => res.json())
+        .then(result => {
+
+            if (result.status !== "success") {
+                alert("No data found");
+                return;
+            }
+
+            const tbody = document.querySelector("#itemsTable tbody");
+            tbody.innerHTML = "";
+
+            result.data.forEach(item => {
+
+                const formattedDate = new Date(item.sale_date).toLocaleString();
+tbody.innerHTML += `
+    <tr>
+        <td>${item.sale_id}</td>
+        <td>${item.sale_date}</td>
+        <td>₹${item.total_amount}</td>
+        <td>
+            <button onclick="viewBill(${item.sale_id})">
+                View
+            </button>
+        </td>
+    </tr>
+`;
+            });
+        });
+}
+/* =========================
+   2️⃣ VIEW SINGLE BILL
+========================= */
+function viewBill(saleId) {
+    fetch(`/sales/${saleId}`)
+        .then(res => res.json())
+        .then(result => {
+            if (result.status !== "success") {
+                alert("Bill not found");
+                return;
+            }
+
+            let text = `
+SALE ID : ${result.bill.sale_id}
+DATE    : ${result.bill.sale_date}
+
+ITEM        QTY   PRICE   TOTAL
+--------------------------------`;
+
+            result.items.forEach(i => {
+                text += `
+${i.product_name.padEnd(12)} ${String(i.quantity).padEnd(5)} ${String(i.price).padEnd(6)} ${i.total}`;
+            });
+
+            text += `
+--------------------------------
+TOTAL AMOUNT : ₹${result.bill.total_amount}
+`;
+
+            document.getElementById("billBox").innerText = text;
+        });
+}
+
+
+/* =========================
+   3️⃣ DAILY SALES REPORT
+========================= */
+function loadDailyReport() {
+    const date = document.getElementById("dailyDate").value;
+
+    if (!date) {
+        alert("Select date");
+        return;
+    }
+
+    fetch(`/sales/report/daily?date=${date}`)
+        .then(res => res.json())
+        .then(result => {
+
+            if (result.status !== "success") {
+                document.getElementById("dailyReport").innerText = "No data found";
+                return;
+            }
+
+            // Convert selected date to formatted style
+            const formattedDate = new Date(date).toLocaleDateString("en-GB", {
+                weekday: "short",
+                day: "2-digit",
+                month: "short",
+                year: "numeric"
+            });
+
+            document.getElementById("dailyReport").innerText = `
+DATE        : ${formattedDate}
+TOTAL BILLS : ${result.report.total_bills}
+TOTAL SALES : ₹${result.report.total_sales}
+`;
+        })
+        .catch(err => {
+            console.error(err);
+            alert("Error loading daily report");
+        });
+}
+
+
+
+/* =========================
+   4️⃣ MONTHLY SALES REPORT
+========================= */
+function loadMonthlyReport() {
+
+    const month = document.getElementById("monthlyMonth").value; // ✅ FIXED ID
+
+    if (!month) {
+        alert("Select month");
+        return;
+    }
+
+    fetch(`/sales/report/monthly?month=${month}`)
+        .then(res => res.json())
+        .then(result => {
+
+            if (result.status !== "success") {
+                document.getElementById("monthlyReport").innerText = "No data found";
+                return;
+            }
+
+            document.getElementById("monthlyReport").innerText = `
+MONTH       : ${result.report.month}
+TOTAL BILLS : ${result.report.total_bills}
+TOTAL SALES : ₹${result.report.total_sales}
+`;
+        })
+        .catch(err => {
+            console.error(err);
+            alert("Error loading monthly report");
+        });
+}
+
+    
+
+
+
+
+</script>
+{% endblock %}

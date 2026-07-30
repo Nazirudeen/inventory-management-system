@@ -1,0 +1,825 @@
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #f4f6f9;
+}
+.navbar {
+    background: none;      /* Remove dark blue */
+    padding: 30px 0 10px 0;
+    text-align: right;
+  
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 20px;
+    
+    font-weight: 200;
+    color: rgb(21, 20, 20);
+}
+.menu {
+    position: absolute;
+    right: 20px;   /* move to RIGHT */
+    top: 40px;
+    transform: translateY(-50%);
+}
+
+
+/* Page center */
+.container {
+    min-height: 90vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Card */
+.card {
+    background: white;
+    width: 360px;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+.card h3 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #1f4fd8;
+}
+
+/* Inputs */
+.card input {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+}
+
+.card input:focus {
+    outline: none;
+    border-color: #1f4fd8;
+}
+
+/* Button */
+.card button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    background: #1f4fd8;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.card button:hover {
+    background: #163fa6;
+}
+
+/* Links & text */
+.card p {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+.card a {
+    color: #1f4fd8;
+    text-decoration: none;
+}
+
+.card a:hover {
+    text-decoration: underline;
+}
+
+/* Message */
+#msg {
+    text-align: center;
+    margin-top: 10px;
+    color: red;
+}
+
+/* Dashboard */
+.dashboard {
+    width: 100%;
+    max-width: 900px;
+}
+
+.dash-title {
+    margin-bottom: 25px;
+    color: #fefeff;
+}
+
+/* Grid */
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+}
+
+/* Dashboard Card */
+.dash-card {
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.dash-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+}
+
+.dash-card h3 {
+    margin: 10px 0;
+    color: #1f4fd8;
+}
+
+.dash-card p {
+    color: #555;
+    font-size: 14px;
+}
+
+.icon {
+    font-size: 40px;
+}
+
+/* Product Page */
+.product-page {
+    width: 100%;
+    max-width: 1000px;
+}
+
+.page-title {
+    margin-bottom: 20px;
+    color: #1f4fd8;
+}
+
+/* Table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+th, td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+}
+
+th {
+    background: #f4f6f9;
+    color: #333;
+}
+
+/* Delete Button */
+button.danger {
+    background: #e74c3c;
+    color: white;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button.danger:hover {
+    background: #c0392b;
+}
+
+/* Product dashboard */
+.product-dashboard {
+    width: 100%;
+    max-width: 1000px;
+}
+
+.product-menu {
+    margin-bottom: 20px;
+}
+
+.product-menu button {
+    padding: 10px 15px;
+    margin-right: 10px;
+    background: #1f4fd8;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.product-menu button:hover {
+    background: #163fa6;
+}
+
+/* Centered product layout */
+.product-wrapper {
+    width: 100%;
+    max-width: 1100px;
+    margin: auto;
+    text-align: center;
+}
+
+.center {
+    margin: 0 auto;
+}
+.product-menu {
+     margin-bottom: 20px; 
+    }
+.product-menu button 
+{ padding: 10px 16px; 
+    margin: 5px;
+     background: #1f4fd8; 
+     color: white; 
+     border: none; 
+     border-radius: 5px; 
+     cursor: pointer; }
+     
+     
+.product-menu button:hover
+ {
+     background: #163fa6; 
+} 
+
+/* Table */
+ table 
+ { width: 100%;
+     border-collapse: collapse;
+      margin-top: 15px;
+     }
+      th, td {
+         padding: 10px;
+         border-bottom: 1px solid #ddd; 
+        } 
+        th { 
+            background: #f4f6f9; 
+        }
+
+/* =========================
+   PROFESSIONAL BILLING PAGE
+   ========================= */
+
+body {
+    background: #eef2f9;
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+
+/* Page Wrapper */
+.billing-wrapper {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 15px;
+}
+
+/* Title */
+.billing-wrapper h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #d9dce3;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+/* Card */
+.billing-card {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 14px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+}
+
+/* Labels */
+.billing-card label {
+    display: block;
+    margin-top: 18px;
+    font-weight: 600;
+    color: #333;
+}
+
+/*--------------------- 
+Inputs & Select(fixed) 
+--------------------*/
+.billing-card select,
+.billing-card input {
+    width: 100%;
+    height: 50px;
+    padding: 0 16px;
+    line-height: 50px;
+    margin-top: 8px;
+    border-radius: 10px;
+    border: 1.5px solid #cfd6e4;
+    font-size: 15px;
+    background: #f9fbff;
+    box-sizing: border-box;
+    transition: all 0.25s ease;
+    outline: none;
+}
+
+/* Hover */ 
+.billing-card select:hover,
+.billing-card input:hover {
+    background: #f3f7ff;
+}
+/* Touch / Click Background Effect */
+.billing-card select:focus,
+.billing-card input:focus {
+    background: #eef4ff;
+    border-color: #1f4fd8;
+    box-shadow: 0 0 0 4px rgba(31, 79, 216, 0.22);
+}
+/* Fix number input arrows */ 
+.billing-card input[type="number"] { 
+    appearance: none;
+     -moz-appearance: textfield; 
+    }
+     .billing-card input[type="number"]::-webkit-inner-spin-button, 
+     .billing-card input[type="number"]::-webkit-outer-spin-button {
+         opacity: 1; 
+        }
+
+/*===================
+      Buttons 
+ ====================*/
+.billing-card button {
+    margin-top: 20px;
+    padding: 12px 20px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+    transition: all 0.25s ease;
+}
+
+/* Add Item */
+ .billing-card button:nth-of-type(1) {
+     background: linear-gradient(135deg, #3498db, #217dbb); 
+     color: #fff; 
+    }
+
+    .billing-card button:nth-of-type(1):hover {
+         transform: translateY(-2px); 
+         box-shadow: 0 6px 15px rgba(52, 152, 219, 0.4);
+         }
+
+         /* Generate Bill */ 
+         
+         .billing-card button:nth-of-type(2) { 
+            background: linear-gradient(135deg, #27ae60, #1e8449); 
+            color: #fff; }
+
+            .billing-card button:nth-of-type(2):hover { 
+                transform: translateY(-2px); 
+                box-shadow: 0 6px 15px rgba(39, 174, 96, 0.4); 
+            }
+
+            /* WhatsApp */ 
+            .billing-card button:nth-of-type(3) 
+            { background: linear-gradient(135deg, #25d366, #1da851); 
+                color: #fff; }
+
+                .billing-card button:nth-of-type(3):hover {
+                     transform: translateY(-2px); 
+                     box-shadow: 0 6px 15px rgba(37, 211, 102, 0.45); 
+                    }
+
+/* ========================= 
+          BILL ITEMS 
+========================= */
+#billItems { margin-top: 20px;
+     padding-left: 18px; }
+
+#billItems li { padding: 10px 0; 
+    border-bottom: 1px dashed #cfd6e4;
+     font-size: 15px; 
+     color: #333; }     
+/* ========================= 
+         TOTAL SECTION
+========================= */
+.billing-card h3 { 
+    margin-top: 25px; 
+    font-size: 22px; 
+    color: #1f4fd8; 
+    font-weight: 700; }
+
+    /* Payment mode spacing */ 
+    .billing-card select#paymentMode {
+         margin-top: 10px; 
+        }
+
+/* ========================= 
+      MOBILE RESPONSIVE 
+========================= */
+@media (max-width: 600px) {
+    .billing-card {
+        padding: 20px;
+    }
+
+    .billing-card button {
+        width: 100%;
+    }
+}
+
+/* ==================================
+   LOGIN INPUT CENTER FIX (FINAL)
+   ================================== */
+
+/* Ensure login/signup card content is centered */
+.container .card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Center input boxes themselves */
+.container .card input {
+    width: 100%;              /* full width inside card */
+    max-width: 100%;          /* prevent overflow */
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;         /* text starts from left */
+    box-sizing: border-box;
+}
+
+/* Input focus effect */
+.container .card input:focus {
+    border-color: #1f4fd8;
+    box-shadow: 0 0 0 3px rgba(31, 79, 216, 0.25);
+    background-color: #f9fbff;
+}
+
+/* Center button as well */
+.container .card button {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    transition: all 0.25s ease;
+}
+
+/* Button hover */
+.container .card button:hover {
+    background: #163fa6;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(31, 79, 216, 0.35);
+}
+
+/* Button click */
+.container .card button:active {
+    transform: scale(0.97);
+}
+
+/* =========================
+   ACTION BUTTON FINAL FIX
+   ========================= */
+
+/* Actions column */
+td:last-child {
+    display: flex;
+    flex-direction: column;     /* Edit on top, Delete below */
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+/* EDIT BUTTON (MAIN) */
+td:last-child button:not(.danger) {
+    width: 90px;
+    height: 32px;
+    font-size: 14px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    box-sizing: border-box;
+}
+
+/* DELETE BUTTON (SMALLER) */
+td:last-child button.danger {
+    width: 90px;                /* 🔹 smaller width */
+    height: 32px;               /* 🔹 smaller height */
+    font-size: 13px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    box-sizing: border-box;
+}
+
+/* =========================
+   SALES TABLE COMPACT VIEW
+   ========================= */
+
+.sales-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;           /* smaller text */
+}
+
+.sales-table th,
+.sales-table td {
+    padding: 6px 8px;          /* 🔴 reduced padding */
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Header */
+.sales-table th {
+    background: #f4f6f9;
+    font-weight: 600;
+}
+
+/* Product name left aligned */
+.sales-table td:nth-child(2) {
+    text-align: left;
+}
+
+/* =========================
+   SMALL VIEW BUTTON
+   ========================= */
+
+.sales-table .view-btn {
+    padding: 4px 10px;         /* 🔴 smaller button */
+    font-size: 13px;
+    border-radius: 4px;
+    background: #1f4fd8;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+.sales-table .view-btn:hover {
+    background: #163fa6;
+}
+
+#itemsTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    font-size: 14px;   /* smaller font */
+}
+
+#itemsTable th {
+    background-color: #1f4fd8;
+    padding: 8px;
+    text-align: center;
+    font-size: 15px;
+}
+
+#itemsTable td {
+    padding: 8px;
+    text-align: center;
+}
+
+#itemsTable tr:nth-child(even) {
+    background-color: #fafafa;
+}
+
+#itemsTable button {
+    padding: 5px 10px;
+    font-size: 13px;
+}
+#itemsTable td:nth-child(2) {
+    font-size: 12px;
+    white-space: nowrap;
+}
+/*     logout         */
+
+
+
+/* Menu container */
+.menu {
+    position: relative;
+}
+
+/* Three dots button */
+.menu-btn {
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+/* Dropdown */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 35px;
+    background-color: white;
+    min-width: 120px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    overflow: hidden;
+}
+
+/* Logout button inside dropdown */
+.logout-btn {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    background: white;
+    cursor: pointer;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+.logout-btn:hover {
+    background: #f44336;
+    color: white;
+}
+/* extra style*/
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+background: linear-gradient(135deg, #021e48, #00040b);
+
+    background-size: 400% 400%;
+    animation: gradientMove 10s ease infinite;
+}
+
+@keyframes gradientMove {
+    0% {background-position: 0% 50%;}
+    50% {background-position: 100% 50%;}
+    100% {background-position: 0% 50%;}
+}
+
+.login-container {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-box {
+    background: white;
+    padding: 30px;
+    width: 320px;
+    border-radius: 15px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    text-align: center;
+    animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {opacity: 0; transform: translateY(20px);}
+    to {opacity: 1; transform: translateY(0);}
+}
+
+.login-box h2 {
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.sub-text {
+    font-size: 13px;
+    color: #777;
+    margin-bottom: 20px;
+}
+
+.login-box input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    transition: 0.3s;
+}
+
+.login-box input:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 8px rgba(102,126,234,0.5);
+    outline: none;
+}
+
+.login-box button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 15px;
+    border-radius: 8px;
+    border: none;
+    background: linear-gradient(90deg, #667eea, #764ba2);
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.login-box button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+.signup-link {
+    margin-top: 15px;
+    font-size: 13px;
+}
+
+.signup-link a {
+    color: #667eea;
+    text-decoration: none;
+    font-weight: bold;
+}
+/* Product Page Background */
+.product-wrapper {
+    padding: 40px;
+    animation: slideFade 0.8s ease;
+}
+
+/* Card Style */
+.card {
+    background: white;
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    margin-top: 20px;
+    animation: slideUp 0.6s ease;
+}
+
+/* Animation */
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Title */
+.page-title {
+    color: white;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Menu Buttons */
+.product-menu button {
+    padding: 10px 18px;
+    border: none;
+    border-radius: 8px;
+    margin: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.product-menu button:first-child {
+    background: #28a745;
+    color: white;
+}
+
+.product-menu button:last-child {
+    background: #ffc107;
+    color: black;
+}
+
+.product-menu button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+}
+
+/* Table Styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    background: #667eea;
+    color: white;
+    padding: 10px;
+}
+
+td {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+/* Action Buttons */
+button.danger {
+    background: #dc3545;
+    color: white;
+}
+
+button.danger:hover {
+    background: #b52a37;
+}
+/* STEP 2: Perfect Table Alignment */
+.product-wrapper,
+.card {
+    width: 95%;
+    max-width: 500px;
+    margin: 40px auto;
+}
+
+table {
+    width: 100%;
+    margin: 0 auto;
+}

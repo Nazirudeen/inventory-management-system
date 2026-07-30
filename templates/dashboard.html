@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+
+<div class="dashboard">
+
+    <h2 class="dash-title">Dashboard</h2>
+
+    <div class="card-grid">
+
+        <div class="dash-card" onclick="location.href='/products-page'">
+            <div class="icon">📦</div>
+            <h3>Product Management</h3>
+            <p>Add, update and manage products</p>
+        </div>
+
+        <div class="dash-card" onclick="location.href='/billing-page'">
+            <div class="icon">🧾</div>
+            <h3>Billing</h3>
+            <p>Create bills and update stock</p>
+        </div>
+
+        <div class="dash-card" onclick="location.href='/sales-page'">
+            <div class="icon">📊</div>
+            <h3>Sales Report</h3>
+            <p>View sales history and reports</p>
+        </div>
+
+    </div>
+
+</div>
+
+
+{% endblock %}

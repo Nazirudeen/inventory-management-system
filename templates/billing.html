@@ -1,0 +1,234 @@
+{% extends "base.html" %}
+{% block title %}Billing{% endblock %}
+
+{% block content %}
+
+<div class="billing-wrapper">
+    <h2 class="page-title">Billing</h2>
+
+    <div class="billing-card">
+
+        <!-- PRODUCT & QUANTITY -->
+        <div class="form-row">
+            <div class="form-group">
+                <label>Product</label>
+                <select id="product"></select>
+            </div>
+
+            <div class="form-group">
+                <label>Quantity</label>
+                <input type="number" id="qty" min="1" placeholder="Enter quantity">
+            </div>
+        </div>
+
+        <!-- ADD ITEM -->
+        <button type="button" class="primary-btn" onclick="addItem()">Add Item</button>
+
+        <!-- BILL ITEMS -->
+        <div class="bill-items">
+            <h4>Bill Items</h4>
+            <ul id="billItems"></ul>
+        </div>
+
+        <!-- TOTAL -->
+        <div class="total-box">
+            <span>Total</span>
+            <strong>₹ <span id="total">0</span></strong>
+        </div>
+
+        <!-- PAYMENT MODE -->
+        <div class="form-group">
+            <label>Payment Mode</label>
+            <select id="paymentMode">
+                <option value="Cash">Cash</option>
+                <option value="UPI">UPI</option>
+            </select>
+        </div>
+
+        <!-- ACTION BUTTONS -->
+        <div class="action-buttons">
+            <button type="button" class="primary-btn" onclick="generateBill()">Generate Bill</button>
+            <button type="button" class="whatsapp-btn" onclick="shareWhatsApp()">
+    Share WhatsApp
+</button>
+
+        </div>
+
+        <p id="msg"></p>
+    </div>
+</div>
+
+<script>
+/* =========================
+   VARIABLES
+========================= */
+let cart= [];
+let total = 0;
+let lastBill=null;
+
+/* =========================
+   LOAD PRODUCTS
+========================= */
+function loadProducts() {
+    fetch("/products")
+        .then(res => res.json())
+        .then(data => {
+            let options = "<option value=''>-- Select Product --</option>";
+            data.data.forEach(p => {
+                options += `
+                    <option value="${p.product_id}" data-price="${p.price}">
+                        ${p.product_name} (Stock: ${p.quantity})
+                    </option>`;
+            });
+            document.getElementById("product").innerHTML = options;
+        });
+}
+
+/* =========================
+   ADD ITEM (ONE PRODUCT)
+========================= */
+function addItem() {
+    const productSelect = document.getElementById("product");
+    const qtyInput = document.getElementById("qty");
+
+    if (!productSelect.value || qtyInput.value <= 0) {
+        alert("Invalid input");
+        return;
+    }
+
+    const option = productSelect.options[productSelect.selectedIndex];
+    const productId = productSelect.value;
+    const productName = option.text.split("(")[0].trim();
+    const price = Number(option.dataset.price);
+    const quantity = Number(qtyInput.value);
+
+    const amount = price * quantity;
+
+    // ✅ PUSH ITEM INTO CART
+    cart.push({
+        product_id: productId,
+        product_name: productName,
+        quantity: quantity,
+        price: price,
+        amount: amount
+    });
+
+    total += amount;
+
+    renderBill();
+
+    qtyInput.value = "";
+}
+/*---------------------------
+      render bill
+---------------------------*/      
+function renderBill() {
+    const list = document.getElementById("billItems");
+    list.innerHTML = "";
+
+    cart.forEach(item => {
+        list.innerHTML += `
+            <li>
+                ${item.product_name} |
+                Qty: ${item.quantity} |
+                Rate: ₹${item.price} |
+                Amount: ₹${item.amount}
+            </li>
+        `;
+    });
+
+    document.getElementById("total").innerText = total;
+}
+
+/* =========================
+   GENERATE BILL
+========================= */
+function generateBill() {
+    if (cart.length === 0) {
+        alert("Add items first");
+        return;
+    }
+
+    fetch("/billing/create-bill", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        credentials: "include",   // ✅ session
+        body: JSON.stringify({
+            payment_mode: document.getElementById("paymentMode").value,
+            items: cart.map(item => ({
+                product_id: item.product_id,
+                quantity: item.quantity
+            }))
+        })
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.status === "success") {
+
+            lastBill = {
+                sale_id: data.sale_id,
+                items: [...cart],
+                total: data.total_amount,   // ✅ backend total
+                payment_mode: data.payment_mode,
+                date: new Date().toLocaleString("en-IN")
+            };
+
+            alert("Bill Generated! Bill No: " + data.sale_id);
+
+            cart = [];
+            total = 0;
+            renderBill();
+        } else {
+            alert(data.message);
+        }
+    })
+    .catch(err => {
+        console.error(err);
+        alert("Server error");
+    });
+}
+
+/* =========================
+   SHARE WHATSAPP BILL
+========================= */
+function shareWhatsApp() {
+    if (!lastBill) {
+        alert("No bill to share");
+        return;
+    }
+
+let text =
+`🏪 ABC STATIONERY SHOP
+📍 Place: Chennai
+🗓 Date: ${lastBill.date}
+
+🧾 CUSTOMER BILL
+-------------------------`;
+
+    lastBill.items.forEach(item => {
+        text += `\nProduct name: ${item.product_name} | Qty: ${item.quantity} | Rate: ₹${item.price} | Amt: ₹${item.amount}`;
+    });
+
+    text += `
+-------------------------
+Total Amount : ₹${lastBill.total}
+Payment Mode : ${lastBill.payment_mode}
+-------------------------
+Thank you 🙂
+Visit Again!`;
+
+    window.open(
+        "https://wa.me/?text=" + encodeURIComponent(text),
+        "_blank"
+    );
+}
+
+
+
+/* LOAD ON PAGE LOAD */
+loadProducts();
+</script>
+
+{% endblock %}

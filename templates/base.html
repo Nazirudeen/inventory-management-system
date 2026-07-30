@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}Inventory System{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+
+<body>
+{% if request.endpoint != 'auth.login' %}
+<header class="navbar">
+  
+    {% if session.get('user_id') %}
+    <div class="menu">
+        <button class="menu-btn" onclick="toggleMenu()">⋮</button>
+
+        <div id="dropdown" class="dropdown-content">
+   <form action="{{ url_for('auth.logout') }}" method="POST">
+    <button type="submit" class="logout-btn">Logout</button>
+</form>
+
+        </div>
+    </div>
+    {% endif %}
+
+</header>
+{% endif %}
+
+
+
+<div class="container">
+    {% block content %}{% endblock %}
+</div>
+
+
+<script>
+function toggleMenu() {
+    const menu = document.getElementById("dropdown");
+    menu.style.display = menu.style.display === "block" ? "none" : "block";
+}
+
+window.onclick = function(event) {
+    if (!event.target.matches('.menu-btn')) {
+        const dropdown = document.getElementById("dropdown");
+        if (dropdown && dropdown.style.display === "block") {
+            dropdown.style.display = "none";
+        }
+    }
+}
+</script>
+
+
+
+</body>
+</html>
