@@ -43,6 +43,8 @@ function signup() {
 
         if (data.status === "success") {
             msg.style.color = "green";
+            msg.innerHTML=data.message;
+            window.location.href="/dashboard";
         } else {
             msg.style.color = "red";
         }
