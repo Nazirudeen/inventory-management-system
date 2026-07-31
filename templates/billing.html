@@ -81,6 +81,17 @@ function loadProducts() {
                     </option>`;
             });
             document.getElementById("product").innerHTML = options;
+            if (window.productSearch) {
+              window.productSearch.destroy();
+            }
+
+            window.productSearch = new TomSelect("#product", {
+            create: false,
+            sortField: {
+                field: "text",
+               direction: "asc"
+            }
+           });
         });
 }
 
@@ -230,5 +241,6 @@ Visit Again!`;
 /* LOAD ON PAGE LOAD */
 loadProducts();
 </script>
+<script src="https://cdn.jsdelivr.net/npm/tom-select/dist/js/tom-select.complete.min.js"></script>
 
 {% endblock %}
