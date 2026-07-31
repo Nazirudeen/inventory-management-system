@@ -34,7 +34,6 @@
         <table>
             <thead>
                 <tr>
-                    <th>ID</th>
                     <th>Name</th>
                     <th>Price</th>
                     <th>Stock</th>
@@ -114,7 +113,6 @@ function loadProducts() {
             data.data.forEach(p => {
                 rows += `
                 <tr>
-                    <td>${p.product_id}</td>
                     <td>${p.product_name}</td>
                     <td>${p.price}</td>
                     <td>${p.quantity}</td>
