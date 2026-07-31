@@ -824,24 +824,4 @@ table {
     margin: 0 auto;
 }
 
-/* search box */
-.search-box {
-    display: flex;
-    justify-content: center;
-    margin: 20px 0;
-}
 
-#searchProduct {
-    width: 350px;
-    padding: 12px 15px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    font-size: 16px;
-    outline: none;
-    transition: 0.3s;
-}
-
-#searchProduct:focus {
-    border-color: #3b82f6;
-    box-shadow: 0 0 5px rgba(59,130,246,0.4);
-}
