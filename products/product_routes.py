@@ -99,23 +99,32 @@ def delete_product(product_id):
     conn = get_db_connection()
     cursor = conn.cursor()
 
-    cursor.execute(
-        "DELETE FROM products WHERE product_id=%s AND user_id=%s",
-        (product_id, user_id)
-    )
+    try:
+        cursor.execute(
+            "DELETE FROM products WHERE product_id=%s AND user_id=%s",
+            (product_id, user_id)
+        )
 
-    conn.commit()
+        conn.commit()
 
-    if cursor.rowcount == 0:
-        conn.close()
+        if cursor.rowcount == 0:
+            return jsonify({
+                "status": "error",
+                "message": "Product not found"
+            }), 404
+
         return jsonify({
-            "status": "error",
-            "message": "Product not found"
+            "status": "success",
+            "message": "Product deleted successfully"
         })
 
-    conn.close()
+    except Exception:
+        conn.rollback()
+        return jsonify({
+            "status": "error",
+            "message": "Cannot delete this product because it has sales history."
+        }), 400
 
-    return jsonify({
-        "status": "success",
-        "message": "Product deleted successfully"
-    })
+    finally:
+        cursor.close()
+        conn.close()

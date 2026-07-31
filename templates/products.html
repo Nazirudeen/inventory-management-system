@@ -146,18 +146,25 @@ function deleteProduct(id) {
         method: "DELETE",
         credentials: "same-origin"
     })
-    .then(response => response.json())
-    .then(data => {
-        if (data.status === "success") {
-            loadProducts();
-        } else {
-            alert(data.message);
-        }
+    .then(async response => {
+    const data = await response.json();
+
+    if (!response.ok) {
+        alert(data.message);
+        return;
+    }
+
+    if (data.status === "success") {
+        loadProducts();
+    } 
+    else {
+        alert(data.message);
+    }
     })
     .catch(error => {
-        console.error("Delete error:", error);
-        alert("Something went wrong!");
-    });
+    console.error("Delete error:", error);
+    alert("Network error. Please try again.");
+});
 }
 </script>
 
