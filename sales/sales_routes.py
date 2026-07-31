@@ -65,6 +65,14 @@ def get_all_sold_items():
         """, (user_id,))
 
     data = cursor.fetchall()
+    if not data:
+     cursor.close()
+     conn.close()
+     return jsonify({
+        "status": "error",
+        "message": "No bills found for this date"
+    }), 404
+
 
     cursor.close()
     conn.close()

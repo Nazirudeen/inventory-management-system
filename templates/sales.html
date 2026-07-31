@@ -78,9 +78,13 @@ function loadSoldItems() {
         .then(result => {
 
             if (result.status !== "success") {
-                alert("No data found");
+                alert("No bills found for this date");
                 return;
             }
+            if (result.data.length === 0) {
+               alert("No bills found for this date");
+                return;
+}
 
             const tbody = document.querySelector("#itemsTable tbody");
             tbody.innerHTML = "";
