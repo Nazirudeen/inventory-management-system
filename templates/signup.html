@@ -42,11 +42,12 @@ function signup() {
         msg.innerText = data.message;
 
         if (data.status === "success") {
-            msg.style.color = "green";
-            msg.innerHTML=data.message;
-            window.location.href="/dashboard";
+           alert("Signup successful");
+           window.location.replace("/dashboard");
+
         } else {
             msg.style.color = "red";
+            msg.innerText=data.message;
         }
     })
     .catch(err => {
