@@ -832,3 +832,35 @@ table {
     font-size: 15px;
     box-sizing: border-box;
 }
+
+/* Tom Select Design */
+.ts-wrapper{
+    width:100%;
+}
+
+.ts-control{
+    min-height:50px !important;
+    border:2px solid #4A90E2 !important;
+    border-radius:10px !important;
+    padding:10px 15px !important;
+    font-size:16px !important;
+    background:#fff !important;
+}
+
+.ts-control input{
+    font-size:16px !important;
+}
+
+.ts-dropdown{
+    border-radius:10px !important;
+    overflow:hidden;
+}
+
+.ts-dropdown .option{
+    padding:10px 15px;
+}
+
+.ts-dropdown .active{
+    background:#4A90E2 !important;
+    color:#fff !important;
+}

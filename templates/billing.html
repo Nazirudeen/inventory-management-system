@@ -87,11 +87,9 @@ function loadProducts() {
 
             window.productSearch = new TomSelect("#product", {
             create: false,
-            sortField: {
-                field: "text",
-               direction: "asc"
-            }
-           });
+            placeholder: "🔍 Search Product...",
+            maxOptions: 10
+});
         });
 }
 
