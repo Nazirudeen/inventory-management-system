@@ -15,6 +15,11 @@
 
     <!-- ADD / EDIT CARD -->
     <div id="formBox" class="card wide center" style="display:none;">
+        <input
+    type="text"
+    id="searchProduct"
+    placeholder="🔍 Search Product..."
+    onkeyup="searchProduct()">
         <h3 id="formTitle">Add Product</h3>
 
         <input type="hidden" id="pid">
@@ -165,6 +170,21 @@ function deleteProduct(id) {
     console.error("Delete error:", error);
     alert("Network error. Please try again.");
 });
+}
+function searchProduct() {
+    let input = document.getElementById("searchProduct").value.toLowerCase().trim();
+
+    let rows = document.querySelectorAll("#productTable tr");
+
+    rows.forEach(function(row) {
+        let text = row.textContent.toLowerCase();
+
+        if (input === "" || text.includes(input)) {
+            row.style.display = "";
+        } else {
+            row.style.display = "none";
+        }
+    });
 }
 </script>
 
