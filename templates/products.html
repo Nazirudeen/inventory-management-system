@@ -28,7 +28,13 @@
     </div>
 
     <!-- PRODUCT LIST CARD -->
-    <div id="listBox" class="card wide center" style="display:none;">
+    <div class="search-box">
+    <input
+        type="text"
+        id="searchProduct"
+        placeholder="🔍 Search Product..."
+        onkeyup="searchProduct()">
+    </div>
         <h3>Product List</h3>
 
         <table>
@@ -165,6 +171,21 @@ function deleteProduct(id) {
     console.error("Delete error:", error);
     alert("Network error. Please try again.");
 });
+}
+function searchProduct() {
+    let input = document.getElementById("searchProduct").value.toLowerCase();
+
+    let rows = document.querySelectorAll("#productTable tr");
+
+    rows.forEach(row => {
+        let productName = row.cells[0].innerText.toLowerCase();
+
+        if (productName.includes(input)) {
+            row.style.display = "";
+        } else {
+            row.style.display = "none";
+        }
+    });
 }
 </script>
 
