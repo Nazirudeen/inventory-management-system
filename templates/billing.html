@@ -228,8 +228,11 @@ Payment Mode : ${lastBill.payment_mode}
 Thank you 🙂
 Visit Again!`;
 
+   const phone = prompt("Enter customer WhatsApp number (91xxxxxxxxxx)");
+
+   if (phone) {
     window.open(
-        "https://wa.me/?text=" + encodeURIComponent(text),
+        "https://wa.me/" + phone + "?text=" + encodeURIComponent(text),
         "_blank"
     );
 }
